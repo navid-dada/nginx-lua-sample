@@ -38,7 +38,7 @@ while retry < 20 and res == ngx.null do
         ngx.say("failed to get req_id: ", err)
         return
     end
-    os.execute(package.config:sub(1,1) == "/" and "sleep 0.8" or "timeout 0.8")
+    os.execute(package.config:sub(1,1) == "/" and "sleep 0.2" or "timeout 0.2")
     retry = retry + 1
 end
 if res == ngx.null then 
