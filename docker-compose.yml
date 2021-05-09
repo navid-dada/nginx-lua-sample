@@ -22,7 +22,7 @@ services:
   redis: 
     container_name: local_redis
     image: redis:latest
-    command: redis-server --requirepass abcd
+    #command: redis-server --requirepass abcd
     ports:
       - 6379:6379
     networks:

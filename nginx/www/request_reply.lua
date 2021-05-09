@@ -23,11 +23,11 @@ if not ok then
     return
 end
 
-local res, err = red:auth("abcd")
-if not res then
-    ngx.log(ngx.ERR, err)
-    return
-end	
+--local res, err = red:auth("abcd")
+--if not res then
+--    ngx.log(ngx.ERR, err)
+--    return
+--end	
 
 local retry = 0;
 local res, err = red:get(ngx.var.reqid)

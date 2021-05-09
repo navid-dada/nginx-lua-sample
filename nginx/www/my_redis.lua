@@ -14,11 +14,11 @@
         return
     end
 
-    local res, err = red:auth("abcd")
-    if not res then
-        ngx.log(ngx.ERR, err)
-		return
-    end	
+    --local res, err = red:auth("abcd")
+    --if not res then
+    --    ngx.log(ngx.ERR, err)
+	--	return
+    --end	
 
     --ok, err = red:set("dog", "an animal")
     --if not ok then
@@ -64,11 +64,11 @@
 
     -- put it into the connection pool of size 100,
     -- with 10 seconds max idle time
-    --local ok, err = red:set_keepalive(10000, 100)
-    --if not ok then    
-    --    ngx.say("failed to set keepalive: ", err)
-    --    return
-    --end
+    local ok, err = red:set_keepalive(10000, 100)
+    if not ok then    
+        ngx.say("failed to set keepalive: ", err)
+        return
+    end
 
     -- or just close the connection right away:
     -- local ok, err = red:close()
