@@ -2,57 +2,81 @@ local json = require("cjson")
 ngx.req.read_body();
 local body = json.decode(ngx.req.get_body_data())
 
-local event = {}
-event["appInfo"] ={}
-event["siteInfo"] ={}
-event["items"] = {}
-event["userInfo"] ={}
-event["publisherInfo"]={}
+local event={
+    BidRequestId=body.id,
+    maximumTimeOut=body.tmax,
+    auctionType= body.type,
+    rtbVersion= 2.5,
+    userInfo={
+        externalId = body.user.id
+    },
+    deviceInfo={
+        type= body.device.devicetype,
+        language=body.device.language,
+        os= body.device.os,
+        osVersion= body.device.osv,
+        model= body.device.model,
+        make= body.device.make,
+        ip= body.device.ip
+    },
+    appInfo = {},
+    siteInfo = {},
+    items = {},
+    publisherInfo = {}
+}
 
-event["bidRequestId"] = body["id"]
-event["maximumTimeOut"] = body["tmax"]
-event["auctionType"] = body["type"]
-event["rtbVersion"] = 2.5
-event["userInfo"]["externalId"]= body["user"]["id"]
+if body.device.ext ~= nil then
+    event.deviceInfo.browserUserAgent= body.device.ext.browser
+end
+if body.device.geo ~= nil then
+    event.deviceInfo.geo = {}
+    event.deviceInfo.geo.country = body.device.geo.country
+end 
 
-for k, v in pairs(body["imp"]) do
-    event["items"][k] = {}
-    event["items"][k]["minimumBidFloor"] = v["bidfloor"]
-    event["items"][k]["bidFloorCurrency"] = v["bidfloorcur"]
-    event["items"][k]["Id"] = v["id"]
-    event["items"][k]["type"] = v["secure"]
-    event["items"][k]["displayPlacementInfo"] = {}
-    event["items"][k]["displayPlacementInfo"]["mimeTypes"] = v["banner"]["mimes"]
-    event["items"][k]["displayPlacementInfo"]["topFrame"] = v["banner"]["topframe"]
-    event["items"][k]["displayPlacementInfo"]["width"] = v["banner"]["w"]
-    event["items"][k]["displayPlacementInfo"]["height"] = v["banner"]["h"]
-    event["items"][k]["displayPlacementInfo"]["positionOnScreen"] = v["banner"]["pos"]
+
+for k, v in pairs(body.imp) do
+    event.items[k]={}
+    event.items[k].minimumBidFloor = v.bidfloor
+    event.items[k].bidFloorCurrency = vbidfloorcur
+    event.items[k].Id = v.id
+    event.items[k].type = v.secure
+    event.items[k].displayPlacementInfo = {
+        mimeTypes = v.banner.mimes,
+        topFrame = v.banner.topframe,
+        width = v.banner.w,
+        height = v.banner.h,
+        positionOnScreen = v.banner.pos,
+    }
+    
 end
 
 
-if body["app"] ~= nil then 
-    event["publisherType"] = "app" 
-    event["appInfo"]["externalId"] = body["app"]["id"]
-    event["appInfo"]["name"] = body["app"]["name"]
-    event["appInfo"]["bundle"] = body["app"]["bundle"]
-    event["appInfo"]["domain"] = body["app"]["domain"]
-    event["appInfo"]["categories"] = body["app"]["cat"]
-    event["appInfo"]["sectionCategories"] = nil
+if body.app ~= nil then 
+    event.publisherType = "app" 
+    event.appInfo ={
+        externalId = body.app.id,
+        name = body.app.name,
+        bundle = body.app.bundle,
+        domain = body.app.domain,
+        categories = body.app.cat,
+        sectionCategories = nil
+    }
     --event["appInfo"]["version"] = 
-    event["siteInfo"] = nil
-    event["publisherInfo"]["externalId"] = body["app"]["publisher"]["id"]
+    event.siteInfo = nil
+    event.publisherInfo.externalId = body.app.publisher.id
 else
-    event["publisherType"] = "site"
-    event["siteInfo"]["externalId"] = body["site"]["id"]
-    event["siteInfo"]["name"] = body["site"]["name"]
-    event["siteInfo"]["domain"] = body["site"]["domain"]
-    event["siteInfo"]["pageUrl"] = body["site"]["page"]
-    event["siteInfo"]["categories"] = nil
-    event["siteInfo"]["sectionCategories"] = body["site"]["sectioncat"]
-    event["appInfo"] = nil
-    event["publisherInfo"]["externalId"] = body["site"]["publisher"]["id"]
-
+    event.publisherType = "site"
+    event.siteInfo ={
+        externalId = body.site.id,
+        name = body.site.name,
+        domain = body.site.domain,
+        pageUrl = body.site.page,
+        categories = nil,
+        sectionCategories = body.site.sectioncat
+    }
+    event.appInfo = nil
+    event.publisherInfo.externalId = body.site.publisher.id
 end
 
 kafka.sendmessage("_DspBidRequestedIntegrationEvent", json.encode(event))
-ngx.say(json.encode(event));
+--ngx.say(json.encode(event));
