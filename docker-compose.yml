@@ -15,10 +15,10 @@ services:
     volumes: 
       - ./trax/default.conf:/etc/nginx/conf.d/default.conf
       - ./trax/nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
-      - /home/navid/lua_project/nginx/www:/usr/share/nginx/html
-      - /home/navid/lua_project/lib/resty/redis.lua:/usr/local/share/luajit-2.0.4/resty/redis.lua
-      - /home/navid/lua_project/lib/resty/kafka:/usr/local/share/lua/5.1/resty/kafka
-      - /home/navid/lua_project/lib/resty/JSON.lua:/usr/local/share/lua/5.1/resty/JSON.lua
+      - ./nginx/www:/usr/share/nginx/html
+      - ./lib/resty/redis.lua:/usr/local/share/luajit-2.0.4/resty/redis.lua
+      - ./lib/resty/kafka:/usr/local/share/lua/5.1/resty/kafka
+      - ./lib/resty/JSON.lua:/usr/local/share/lua/5.1/resty/JSON.lua
     extra_hosts:
       - host.docker.internal:host-gateway    
     networks: 
