@@ -54,5 +54,5 @@ else
 
 end
 
-kafka.send("_DspBidRequestedIntegrationEvent", json.encode(event))
+kafka.sendmessage("_DspBidRequestedIntegrationEvent", json.encode(event))
 ngx.say(json.encode(event));
