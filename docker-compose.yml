@@ -5,9 +5,10 @@ services:
     #image: fabiocicerchia/nginx-lua
     image: repo.sabacell.com:5000/phoenix.trax:dev
     environment: 
-      - REDIS_SERVER=redis
-      - REDIS_PORT=6379
-      - KAFKA_SERVER=93.115.151.144
+      - REDIS_SERVER=10.11.12.162
+      - REDIS_PORT=6399
+      - REDIS_AUTH_KEY=u5CVSyY6o7v3JxIz
+      - KAFKA_SERVER=10.11.12.162
       - KAFKA_PORT=9092
     ports: 
       - 8089:80
