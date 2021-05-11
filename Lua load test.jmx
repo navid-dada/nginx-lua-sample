@@ -444,6 +444,158 @@
           <hashTree/>
         </hashTree>
       </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Json mapper" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">stoptest</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">100</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">100</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">{&#xd;
+  &quot;tmax&quot;: 120,&#xd;
+  &quot;site&quot;: {&#xd;
+    &quot;publisher&quot;: {&#xd;
+      &quot;id&quot;: &quot;13&quot;,&#xd;
+      &quot;name&quot;: &quot;Test Publisher&quot;&#xd;
+    },&#xd;
+    &quot;domain&quot;: &quot;tebyan.net&quot;,&#xd;
+    &quot;page&quot;: &quot;http://tebyan.net&quot;,&#xd;
+    &quot;id&quot;: &quot;12&quot;,&#xd;
+    &quot;sectioncat&quot;: [&#xd;
+      &quot;IAB7&quot;&#xd;
+    ]&#xd;
+  },&#xd;
+  &quot;imp&quot;: [&#xd;
+    {&#xd;
+      &quot;bidfloor&quot;: 0,&#xd;
+      &quot;bidfloorcur&quot;: &quot;IRR&quot;,&#xd;
+      &quot;banner&quot;: {&#xd;
+        &quot;mimes&quot;: [&#xd;
+          &quot;image/gif&quot;,&#xd;
+          &quot;image/jpg&quot;,&#xd;
+          &quot;text/html&quot;,&#xd;
+          &quot;application/javascript&quot;&#xd;
+        ],&#xd;
+        &quot;h&quot;: 250,&#xd;
+        &quot;pos&quot;: 0,&#xd;
+        &quot;battr&quot;: [&#xd;
+          1,&#xd;
+          3,&#xd;
+          4,&#xd;
+          5,&#xd;
+          6,&#xd;
+          7,&#xd;
+          9,&#xd;
+          10,&#xd;
+          11,&#xd;
+          13,&#xd;
+          14,&#xd;
+          15&#xd;
+        ],&#xd;
+        &quot;w&quot;: 300,&#xd;
+        &quot;btype&quot;: [&#xd;
+          1,&#xd;
+          2,&#xd;
+          3,&#xd;
+          4&#xd;
+        ],&#xd;
+        &quot;topframe&quot;: 0,&#xd;
+        &quot;expdir&quot;: [],&#xd;
+        &quot;id&quot;: &quot;1&quot;&#xd;
+      },&#xd;
+      &quot;id&quot;: &quot;1&quot;,&#xd;
+      &quot;secure&quot;: 1&#xd;
+    }&#xd;
+  ],&#xd;
+  &quot;at&quot;: 2,&#xd;
+  &quot;device&quot;: {&#xd;
+    &quot;os&quot;: &quot;Mac OS X&quot;,&#xd;
+    &quot;language&quot;: &quot;en&quot;,&#xd;
+    &quot;ip&quot;: &quot;199.116.74.234&quot;,&#xd;
+    &quot;osv&quot;: &quot;10.10.5&quot;,&#xd;
+    &quot;geo&quot;: {&#xd;
+      &quot;country&quot;: &quot;USA&quot;&#xd;
+    },&#xd;
+    &quot;dnt&quot;: 0,&#xd;
+    &quot;model&quot;: &quot;Other&quot;,&#xd;
+    &quot;ua&quot;: &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36&quot;&#xd;
+  },&#xd;
+  &quot;id&quot;: &quot;35e94fc3-af46-46bf-a837-8a27eb36f2a0&quot;,&#xd;
+  &quot;user&quot;: {&#xd;
+    &quot;id&quot;: &quot;60824fb02fd0b18a19a4b1f9c720ed6bfb0ad4a2&quot;&#xd;
+  }&#xd;
+}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">localhost</stringProp>
+          <stringProp name="HTTPSampler.port">8053</stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">luabody</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="true">
+            <boolProp name="ResultCollector.error_logging">false</boolProp>
+            <objProp>
+              <name>saveConfig</name>
+              <value class="SampleSaveConfiguration">
+                <time>true</time>
+                <latency>true</latency>
+                <timestamp>true</timestamp>
+                <success>true</success>
+                <label>true</label>
+                <code>true</code>
+                <message>true</message>
+                <threadName>true</threadName>
+                <dataType>true</dataType>
+                <encoding>false</encoding>
+                <assertions>true</assertions>
+                <subresults>true</subresults>
+                <responseData>false</responseData>
+                <samplerData>false</samplerData>
+                <xml>false</xml>
+                <fieldNames>true</fieldNames>
+                <responseHeaders>false</responseHeaders>
+                <requestHeaders>false</requestHeaders>
+                <responseDataOnError>false</responseDataOnError>
+                <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+                <assertionsResultsToSave>0</assertionsResultsToSave>
+                <bytes>true</bytes>
+                <sentBytes>true</sentBytes>
+                <url>true</url>
+                <threadCounts>true</threadCounts>
+                <idleTime>true</idleTime>
+                <connectTime>true</connectTime>
+              </value>
+            </objProp>
+            <stringProp name="filename"></stringProp>
+          </ResultCollector>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
     </hashTree>
   </hashTree>
 </jmeterTestPlan>

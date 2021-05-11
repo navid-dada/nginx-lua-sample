@@ -3,6 +3,7 @@ services:
   nginx:
     container_name: local_nginx
     image: fabiocicerchia/nginx-lua
+    #image: repo.sabacell.com:5000/phoenix.trax:dev
     environment: 
       - REDIS_SERVER=172.26.0.1
     ports: 
