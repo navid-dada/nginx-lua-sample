@@ -1,5 +1,7 @@
 local json = require("cjson")
 ngx.req.read_body();
+local body = json.decode(ngx.req.get_body_data())
+
 local event = {}
 event["appInfo"] ={}
 event["siteInfo"] ={}
@@ -7,7 +9,6 @@ event["items"] = {}
 event["userInfo"] ={}
 event["publisherInfo"]={}
 
-local body = json.decode(ngx.req.get_body_data())
 event["bidRequestId"] = body["id"]
 event["maximumTimeOut"] = body["tmax"]
 event["auctionType"] = body["type"]
@@ -53,4 +54,5 @@ else
 
 end
 
+kafka.send("_DspBidRequestedIntegrationEvent", json.encode(event))
 ngx.say(json.encode(event));
