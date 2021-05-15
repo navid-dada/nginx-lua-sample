@@ -1,20 +1,7 @@
-local producer = require "resty.kafka.producer"
-local redis = require "resty.redis"
+ngx.req.read_body()
+local body = ngx.req.get_body_data()
+kafka.send("DspBidRequestedIntegrationEvent", body)
 
-local broker_list = {
-    {
-        host= "93.115.151.144",
-        port= 9092
-    }
-}
-local bp = producer:new(broker_list, { producer_type = "async" })
-local ok, err = bp:send("_lua_topic", "my_key", ngx.var.reqid)
-if not ok then
-  ngx.say("send err:", err)
-  return
-end
-
-ngx.say("message sent!!!"..ngx.var.reqid)
 
 local red = redis:new()
 local ok, err = red:connect("redis", 6379)
@@ -23,17 +10,17 @@ if not ok then
     return
 end
 
---local res, err = red:auth("abcd")
---if not res then
---    ngx.log(ngx.ERR, err)
---    return
---end	
+local res, err = red:auth(REDIS_AUTH_KEY)
+if not res then
+    ngx.log(ngx.ERR, err)
+	return
+end	
 
 local retry = 0;
-local res, err = red:get(ngx.var.reqid)
+local res, err = red:get(body.id)
 while retry < 20 and res == ngx.null do
     ngx.say("try to get response")
-    res, err = red:get(ngx.var.reqid)
+    res, err = red:get(body.id)
     if not res then
         ngx.say("failed to get req_id: ", err)
         return
